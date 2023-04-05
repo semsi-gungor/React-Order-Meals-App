@@ -42,7 +42,7 @@ const cartReducer = (state, action) => {
       );
 
       const existingItem = state.items[existingItemIndex];
-      const updatedTotal = state.totalAmount - existingCartItem.price;
+      const updatedTotal = state.totalAmount - existingItem.price;
       let updatedStateItems;
 
       if (existingItem.amount === 1) {
@@ -84,7 +84,7 @@ const CartProvider = (props) => {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
-    revomeItem: removeItemFromCartHandler,
+    removeItem: removeItemFromCartHandler,
   };
 
   return (
