@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import Modal from "../UI/Modal";
+import CartItem from "./CartItem";
+
 import CartContext from "../../store/cart-context";
 
 import classes from "./Cart.module.css";
@@ -11,10 +13,22 @@ const Cart = (props) => {
 
   const hasItems = cartCtx.items.length > 0;
 
+  const cartItemRemoveHandler = (id) => {};
+  const cartItemAddHandler = (item) => {};
+
   const cartItems = (
     <ul className={classes["cart-items"]}>
       {cartCtx.items.map((item) => {
-        return <li key={item.id}>{item.name}</li>;
+        return (
+          <CartItem
+            key={item.id}
+            name={item.name}
+            amount={item.amount}
+            price={item.price}
+            onRemove={cartItemRemoveHandler.bind(null, item.id)} // verdiğimiz fonksiyon parametre olarak bulunduğu komponent içinden değer alacaksa -> onRemove={cartRemoveHandler(item.id)} gibi çağrılamadığı için (çünkü bu referans vermek olmuyor fonksiyonu çağırmak oluyor) onRemove={cartItemRemoveHandler.bind(null, item.id)} kullanıldı
+            onAdd={cartItemAddHandler.bind(null, item)}
+          ></CartItem>
+        );
       })}
     </ul>
   );
