@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
-import Input from "../UI/Input";
+import React, { useRef, useState } from 'react';
+import Input from '../UI/Input';
 
-import classes from "./MealItemForm.module.css";
+import classes from './MealItemForm.module.css';
 
 const MealItemForm = (props) => {
   const amountInputRef = useRef();
@@ -14,6 +14,8 @@ const MealItemForm = (props) => {
     const enteredAmount = amountInputRef.current.value; //input componentine veridiğimiz reften gelen value number bile olsa string olarak döner
 
     const enteredAmountNumber = +enteredAmount; // string'i sayıya dönüştürme
+
+    amountInputRef.current.value = 1;
 
     if (
       enteredAmount.trim().length === 0 ||
@@ -34,11 +36,11 @@ const MealItemForm = (props) => {
         label="Amount"
         input={{
           id: props.id,
-          type: "number",
-          min: "1",
-          max: "5",
-          step: "1",
-          defaultValue: "1",
+          type: 'number',
+          min: '1',
+          max: '5',
+          step: '1',
+          defaultValue: '1',
         }}
       />
       <button>Add</button>

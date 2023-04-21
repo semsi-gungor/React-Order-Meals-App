@@ -1,36 +1,29 @@
-import React from "react";
-import Card from "../UI/Card";
-import MealItem from "./MealItem";
-import classes from "./AvailableMeals.module.css";
-
-const DUMMY_MEALS = [
-  {
-    id: "m1",
-    name: "Sushi",
-    description: "Finest fish and veggies",
-    price: 22.99,
-  },
-  {
-    id: "m2",
-    name: "Schnitzel",
-    description: "A german specialty!",
-    price: 16.5,
-  },
-  {
-    id: "m3",
-    name: "Barbecue Burger",
-    description: "American, raw, meaty",
-    price: 12.99,
-  },
-  {
-    id: "m4",
-    name: "Green Bowl",
-    description: "Healthy...and green...",
-    price: 18.99,
-  },
-];
+import React, { useEffect } from 'react';
+import Card from '../UI/Card';
+import MealItem from './MealItem';
+import classes from './AvailableMeals.module.css';
 
 const AvailableMeals = () => {
+  useEffect(() => {
+    const fetchMeals = async () => {
+      const response = await fetch(
+        'https://react-http-1cb42-default-rtdb.europe-west1.firebasedatabase.app/meals.json'
+      );
+      const responseData = await response.json(); // burdan asenkron olarak dönnen json objesi js objesine dönüştürülür
+
+      const loadedMeals = []; // ancak dönüştürdüğümüz js objesini de map ile kullanabilmek için array yapmamız gerek
+
+      for (const key in responseData) {
+        loadedMeals.push({
+          id: key,
+          name: responseData[key].name,
+          description: responseData[key].description,
+          price: responseData[key].price,
+        });
+      }
+    };
+  }, []);
+
   const mealList = DUMMY_MEALS.map((meal) => {
     return (
       <MealItem
