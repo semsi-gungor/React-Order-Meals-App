@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '../UI/Card';
 import MealItem from './MealItem';
 import classes from './AvailableMeals.module.css';
 
 const AvailableMeals = () => {
+  const [meals, setMeals] = useState([]);
+
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch(
@@ -21,10 +23,12 @@ const AvailableMeals = () => {
           price: responseData[key].price,
         });
       }
+
+      setMeals(loadedMeals);
     };
   }, []);
 
-  const mealList = DUMMY_MEALS.map((meal) => {
+  const mealList = meals.map((meal) => {
     return (
       <MealItem
         id={meal.id}
